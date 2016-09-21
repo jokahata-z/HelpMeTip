@@ -33,11 +33,12 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+- With iOS 10, the instructions for NSUserDefaults are now incorrect. 
+- Also the views between the simulator and XCode must match
 
 ## License
 
-Copyright [yyyy] [name of copyright owner]
+Copyright 2016 John Okahata
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
