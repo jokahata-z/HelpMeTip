@@ -41,6 +41,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        billField.becomeFirstResponder()
         let defaults = UserDefaults.standard
         let defaultTip1 = defaults.integer(forKey: "default_tip_1")
         let defaultTip2 = defaults.integer(forKey: "default_tip_2")
