@@ -11,10 +11,19 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet var tipCalculatorView: UIView!
+    
     @IBOutlet weak var billField: UITextField!
-    @IBOutlet weak var tipLabel: UILabel!
-    @IBOutlet weak var totalLabel: UILabel!
-    @IBOutlet weak var tipControl: UISegmentedControl!
+    @IBOutlet weak var tip1Label: UILabel!
+    @IBOutlet weak var tip2Label: UILabel!
+    @IBOutlet weak var tip3Label: UILabel!
+    
+    @IBOutlet weak var tip1AmountLabel: UILabel!
+    @IBOutlet weak var tip2AmountLabel: UILabel!
+    @IBOutlet weak var tip3AmountLabel: UILabel!
+    
+    @IBOutlet weak var total1Label: UILabel!
+    @IBOutlet weak var total2Label: UILabel!
+    @IBOutlet weak var total3Label: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +42,14 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let defaults = UserDefaults.standard
-        let defaultTipIndex = defaults.integer(forKey: "default_tip")
-        tipControl.selectedSegmentIndex = defaultTipIndex
+        let defaultTip1 = defaults.integer(forKey: "default_tip_1")
+        let defaultTip2 = defaults.integer(forKey: "default_tip_2")
+        let defaultTip3 = defaults.integer(forKey: "default_tip_3")
         calculateTip (self)
+        
+        tip1Label.text = String(format: "%d%%", defaultTip1)
+        tip2Label.text = String(format: "%d%%", defaultTip2)
+        tip3Label.text = String(format: "%d%%", defaultTip3)
         
         UIView.animate(withDuration: 0.4, animations: {
             self.tipCalculatorView.alpha = 1
@@ -50,15 +64,30 @@ class ViewController: UIViewController {
 
 
     @IBAction func calculateTip(_ sender: AnyObject) {
+        let defaults = UserDefaults.standard
+        let defaultTip1 = Double(defaults.integer(forKey: "default_tip_1")) / 100.0
+        let defaultTip2 = Double(defaults.integer(forKey: "default_tip_2")) / 100.0
+        let defaultTip3 = Double(defaults.integer(forKey: "default_tip_3")) / 100.0
         
-        let tipPercentages = [0.18, 0.2, 0.25]
+        let tipPercentages = [defaultTip1, defaultTip2, defaultTip3]
         
         let bill = Double(billField.text!) ?? 0
-        let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
-        let total = bill + tip
+        let tip1 = bill * tipPercentages[0]
+        let tip2 = bill * tipPercentages[1]
+        let tip3 = bill * tipPercentages[2]
         
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
+        let total1 = bill + tip1
+        let total2 = bill + tip2
+        let total3 = bill + tip3
+        
+        tip1AmountLabel.text = String(format: "$%.2f", tip1)
+        total1Label.text = String(format: "$%.2f", total1)
+        
+        tip2AmountLabel.text = String(format: "$%.2f", tip2)
+        total2Label.text = String(format: "$%.2f", total2)
+        
+        tip3AmountLabel.text = String(format: "$%.2f", tip3)
+        total3Label.text = String(format: "$%.2f", total3)
     }
 }
 
